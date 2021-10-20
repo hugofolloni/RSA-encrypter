@@ -125,14 +125,13 @@ def encriptar(userMessage, n, e):
         code = str(símbolos_para_códigos[message[i]])
         newString = previousString + code
 
-    tamBloco = 6
-
     splitedList = []
     encryptedList = []
 
     i = 0
 
     while i < len(newString):
+        tamBloco = random.randint(5, n)
         splitedList.append(newString[i:i + tamBloco])
         i = i + tamBloco
 
