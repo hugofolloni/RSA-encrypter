@@ -39,7 +39,7 @@ símbolos_para_códigos = {'0': 111, '1': 112, '2': 113, '3': 114, '4': 115,
 
 # FUNÇÃO PARA OS PRIMOS p E q
 
-def rabin_miller(natural):
+def miller_rabin(natural):
     testes = 0
 
     inconclusivos = 0
@@ -50,11 +50,9 @@ def rabin_miller(natural):
         p = random.randint(math.pow(10, natural), math.pow(10, natural + 2))
         
     while testes < 10:
-
         b = random.randint(2, p - 2)
 
         m = p - 1
-
         k = 0
         q = m
         while q % 2 == 0:
@@ -90,7 +88,8 @@ def rabin_miller(natural):
     if inconclusivos == 10:
         return p
     else:
-        return rabin_miller(natural)
+        return miller_rabin(natural)
+
 
 
 # FUNÇÃO PARA GERAR AS CHAVES e E d BASEADOS NO p E q
@@ -109,10 +108,10 @@ def gera_chaves(p, q):
     invPmodQ = pow(p, -1, q)
     invQmodP = pow(q, -1, p)
 
-    DmodPm1 = d % (p - 1)
-    DmodQm1 = d % (q - 1)
+    dmodPm1 = d % (p - 1)
+    dmodQm1 = d % (q - 1)
 
-    return n, p, q, phi, e, d, invPmodQ, invQmodP, DmodPm1, DmodQm1
+    return n, p, q, phi, e, d, invPmodQ, invQmodP, dmodPm1, dmodQm1
 
 
 
@@ -180,9 +179,10 @@ def descriptar(blocos, n, d):
     return newString
 
 
+
 # GERAÇÃO DAS CHAVES POR MEIO DA FUNÇÃO GERA_CHAVES USANDO OS PRIMOS P E Q GERADOR POR MILLER_RABIN E FUNÇÃO DESENCRIPTAR(ENCRIPTAR(...))
 
-chaves = gera_chaves(rabin_miller(75), rabin_miller(75))
+chaves = gera_chaves(miller_rabin(75), miller_rabin(75))
 n, e, d = chaves[0], chaves[4], chaves[5]
 
 descriptar(encriptar('eu amo pão (MION, 2021)', n, e), n, d)
