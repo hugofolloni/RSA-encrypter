@@ -35,6 +35,10 @@ símbolos_para_códigos = {'0': 111, '1': 112, '2': 113, '3': 114, '4': 115,
 ':': 227, '_': 228, '(': 229, ')': 231, '"': 232, '#': 233, '$': 234,
 '%': 235, '@': 236, ' ': 237, '\n': 238}
 
+
+
+# FUNÇÃO PARA OS PRIMOS p E q
+
 def rabin_miller(natural):
     testes = 0
 
@@ -89,7 +93,7 @@ def rabin_miller(natural):
         return rabin_miller(natural)
 
 
-
+# FUNÇÃO PARA GERAR AS CHAVES e E d BASEADOS NO p E q
 
 def gera_chaves(p, q):
     n = p * q
@@ -112,6 +116,7 @@ def gera_chaves(p, q):
 
 
 
+# FUNÇÃO PARA ENCRIPTAÇÃO
 
 def encriptar(userMessage, n, e):
     message = list(userMessage)
@@ -137,12 +142,11 @@ def encriptar(userMessage, n, e):
         mod = pow(bloco, e, n)
         encryptedList.append(mod)
 
-    print(encryptedList)
-
     return encryptedList
 
 
 
+# FUNÇÃO PARA DESENCRIPTAÇÃO
 
 def descriptar(blocos, n, d):
 
@@ -173,11 +177,12 @@ def descriptar(blocos, n, d):
         letter = códigos_para_símbolos[int(decryptedMessage[i])]
         newString = previousString + letter
 
-    # print(newString)
+    return newString
 
 
+# GERAÇÃO DAS CHAVES POR MEIO DA FUNÇÃO GERA_CHAVES USANDO OS PRIMOS P E Q GERADOR POR MILLER_RABIN E FUNÇÃO DESENCRIPTAR(ENCRIPTAR(...))
 
-chaves = gera_chaves(rabin_miller(20), rabin_miller(20))
+chaves = gera_chaves(rabin_miller(75), rabin_miller(75))
 n, e, d = chaves[0], chaves[4], chaves[5]
 
-descriptar(encriptar("Arroz é bom", n, e), n, d)
+descriptar(encriptar('eu amo pão (MION, 2021)', n, e), n, d)
